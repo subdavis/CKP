@@ -25,6 +25,7 @@
     "keeweb": "https://github.com/keeweb/keeweb",
     "materialize-css": "^0.100.2",
     "pako": "^1.0.6",
+    "puppeteer": "^1.8.0",
     "vue": "^2.4.4",
     "vue-simple-spinner": "^1.2.8",
     "webdav": "https://github.com/subdavis/webdav-client#fetchfix",

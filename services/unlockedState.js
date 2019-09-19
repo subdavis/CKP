@@ -131,6 +131,11 @@ function UnlockedState($router, keepassReference, protectedMemory, settings, not
 		copyEntry = entry;
 		document.execCommand('copy');
 	}
+	my.copyTotp = function(entry) {
+		copyPart = 'TOTP';
+		copyEntry = entry;
+		document.execCommand('copy');
+	}
 	my.gotoDetails = function (entry) {
 		$router.route('/entry-details/' + entry.id);
 	}
@@ -145,8 +150,14 @@ function UnlockedState($router, keepassReference, protectedMemory, settings, not
 			return; //listener can get registered multiple times
 		}
 
-		var textToPutOnClipboard = getAttribute(copyEntry, copyPart);
-		var fieldName = copyPart.charAt(0).toUpperCase() + copyPart.slice(1); // https://stackoverflow.com/a/1026087
+		let fieldName, textToPutOnClipboard;
+		if (copyPart === 'userName' || copyPart === 'password') {
+			textToPutOnClipboard = getAttribute(copyEntry, copyPart);
+			fieldName = copyPart.charAt(0).toUpperCase() + copyPart.slice(1); // https://stackoverflow.com/a/1026087
+		} else {
+			fieldName = copyPart;
+			textToPutOnClipboard = copyEntry;
+		}
 		copyEntry = null;
 		copyPart = null;
 		e.clipboardData.setData('text/plain', textToPutOnClipboard);
